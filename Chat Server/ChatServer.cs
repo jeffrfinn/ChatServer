@@ -81,6 +81,10 @@ namespace Chat_Server
                     // if messege is empty or there is no client
                     if (msg.Trim() == "" || tcpClient[i] == null)
                     {
+                        continue;
+                    }
+                    else
+                    {
                         /*Use the GetStream method to get the current memory
                         stream for this index of our TCPClient array */
                         writer = new StreamWriter(tcpClient[i].GetStream());
@@ -90,9 +94,8 @@ namespace Chat_Server
                         writer.Flush();
                         // reset the stream to null
                         writer = null;
-
-                        //continue;
                     }
+
                 }
                 // catch that a user has left the conversation
                 catch(Exception e44)
@@ -132,6 +135,10 @@ namespace Chat_Server
                     // if messege is empty or there is no client
                     if (msg.Trim() == "" || tcpClient[i] == null)
                     {
+                        continue;
+                    }
+                    else
+                    {
                         /*Use the GetStream method to get the current memory
                         stream for this index of our TCPClient array */
                         writer = new StreamWriter(tcpClient[i].GetStream());
@@ -142,7 +149,6 @@ namespace Chat_Server
                         writer.Flush();
                         // reset the stream to null
                         writer = null;
-
                     }
                 }
                 // catch when a user has left the room
