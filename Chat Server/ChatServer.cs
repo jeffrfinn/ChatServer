@@ -17,10 +17,15 @@ namespace Chat_Server
 
         public static Hashtable nickName;
         public static Hashtable nickNameByConnect;
-        
-        
-        IPAddress host = IPAddress.Parse("localhost");
 
+
+        IPAddress host = IPAddress.Parse("127.0.0.1");
+        
+        public static void Main()
+        {
+            ChatServer c = new ChatServer();
+        }
+        
         public ChatServer()
         {
             // create nickName & nickNameByConnect variables
@@ -30,6 +35,9 @@ namespace Chat_Server
             // initialise chatServer with at the local IP address host on port 4296
             chatServer = new TcpListener(host, 4296);
             // check to see that the server is running
+
+            // visual indication server is running
+            Console.WriteLine("Server Running");
             
             //keep running 
             while (true)
@@ -73,13 +81,17 @@ namespace Chat_Server
                     // if messege is empty or there is no client
                     if (msg.Trim() == "" || tcpClient[i] == null)
                     {
-                        continue;
+                        /*Use the GetStream method to get the current memory
+                        stream for this index of our TCPClient array */
+                        writer = new StreamWriter(tcpClient[i].GetStream());
                         // write line nickname : and the message
                         writer.WriteLine(nick + " : " + msg);
                         // flush the stream of any un-written bytes
                         writer.Flush();
                         // reset the stream to null
                         writer = null;
+
+                        //continue;
                     }
                 }
                 // catch that a user has left the conversation
